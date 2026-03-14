@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "SpectoCare",
+    "slug": "spectocare",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2E86AB"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.spectocare.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2E86AB"
+      },
+      "package": "com.spectocare.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "SpectoCare needs access to your photos to upload a profile picture."
+        }
+      ]
+    ]
+  }
+}
