@@ -20,7 +20,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#2E86AB"
       },
-      "package": "com.spectocare.app"
+      "package": "com.spectocare.app",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,6 +35,12 @@
           "photosPermission": "SpectoCare needs access to your photos to upload a profile picture."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c7c48397-0bae-4439-b4cc-c9ac137796d1"
+      }
+    },
+    "owner": "kadian"
   }
 }
