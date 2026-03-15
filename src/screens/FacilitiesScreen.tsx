@@ -15,9 +15,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getFacilities } from '../services/firestoreService';
 import { Facility, FacilityType } from '../models';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../constants/theme';
-import { RootStackParamList } from '../navigation/AppNavigator';
+import { HomeStackParamList } from '../navigation/TabNavigator';
 
-type Nav = NativeStackNavigationProp<RootStackParamList>;
+type Nav = NativeStackNavigationProp<HomeStackParamList>;
 
 const FACILITY_TYPES: (FacilityType | 'All')[] = [
   'All',
@@ -66,8 +66,13 @@ export default function FacilitiesScreen() {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
-        <Text style={styles.title}>Find Facilities</Text>
-        <Text style={styles.subtitle}>Assessment & therapy centers near you</Text>
+        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back" size={26} color={Colors.textPrimary} />
+        </TouchableOpacity>
+        <View>
+          <Text style={styles.title}>Find Facilities</Text>
+          <Text style={styles.subtitle}>Assessment & therapy centers near you</Text>
+        </View>
       </View>
 
       {/* Search */}
@@ -173,7 +178,14 @@ export default function FacilitiesScreen() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.background },
-  header: { paddingHorizontal: Spacing.lg, paddingTop: Spacing.md },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.md,
+    paddingBottom: Spacing.sm,
+  },
+  backBtn: { width: 40, height: 40, justifyContent: 'center', alignItems: 'center', marginRight: 4 },
   title: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.textPrimary },
   subtitle: { fontSize: FontSize.sm, color: Colors.textSecondary, marginTop: 2, marginBottom: Spacing.md },
   searchWrap: {

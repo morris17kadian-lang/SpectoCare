@@ -16,12 +16,12 @@ import { format } from 'date-fns';
 import { useAuth } from '../../context/AuthContext';
 import { getJournalEntries, deleteJournalEntry } from '../../services/firestoreService';
 import { Colors, Spacing, Radius, FontSize } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { HomeStackParamList } from '../../navigation/TabNavigator';
 import { JournalEntry } from '../../models';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Journal'>;
-  route: RouteProp<RootStackParamList, 'Journal'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'Journal'>;
+  route: RouteProp<HomeStackParamList, 'Journal'>;
 };
 
 const MOOD_EMOJI: Record<string, string> = {

@@ -16,11 +16,11 @@ import { RouteProp } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
 import { addRoutine, updateRoutine, getRoutines } from '../../services/firestoreService';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { HomeStackParamList } from '../../navigation/TabNavigator';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'RoutineForm'>;
-  route: RouteProp<RootStackParamList, 'RoutineForm'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'RoutineForm'>;
+  route: RouteProp<HomeStackParamList, 'RoutineForm'>;
 };
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

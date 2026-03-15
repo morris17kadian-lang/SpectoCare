@@ -15,11 +15,11 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { getRoutines, deleteRoutine } from '../../services/firestoreService';
 import { Routine } from '../../models';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { HomeStackParamList } from '../../navigation/TabNavigator';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Routine'>;
-  route: RouteProp<RootStackParamList, 'Routine'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'Routine'>;
+  route: RouteProp<HomeStackParamList, 'Routine'>;
 };
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

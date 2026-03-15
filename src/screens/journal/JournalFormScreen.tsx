@@ -17,11 +17,11 @@ import { format } from 'date-fns';
 import { useAuth } from '../../context/AuthContext';
 import { addJournalEntry } from '../../services/firestoreService';
 import { Colors, Spacing, Radius, FontSize } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { HomeStackParamList } from '../../navigation/TabNavigator';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'JournalForm'>;
-  route: RouteProp<RootStackParamList, 'JournalForm'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'JournalForm'>;
+  route: RouteProp<HomeStackParamList, 'JournalForm'>;
 };
 
 type Mood = 'great' | 'good' | 'neutral' | 'hard' | 'very_hard';

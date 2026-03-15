@@ -17,10 +17,10 @@ import { useAuth } from '../../context/AuthContext';
 import { getPosts, createPost } from '../../services/firestoreService';
 import { Post } from '../../models';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { CommunityStackParamList } from '../../navigation/TabNavigator';
 import { formatDistanceToNow } from 'date-fns';
 
-type Nav = NativeStackNavigationProp<RootStackParamList>;
+type Nav = NativeStackNavigationProp<CommunityStackParamList>;
 
 export default function CommunityScreen() {
   const { user } = useAuth();

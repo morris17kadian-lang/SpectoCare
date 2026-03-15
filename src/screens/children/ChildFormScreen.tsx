@@ -16,12 +16,12 @@ import { RouteProp } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
 import { addChild, updateChild, getChildren } from '../../services/firestoreService';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { HomeStackParamList } from '../../navigation/TabNavigator';
 import { Child } from '../../models';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'ChildForm'>;
-  route: RouteProp<RootStackParamList, 'ChildForm'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'ChildForm'>;
+  route: RouteProp<HomeStackParamList, 'ChildForm'>;
 };
 
 const GENDERS = ['male', 'female', 'other'] as const;

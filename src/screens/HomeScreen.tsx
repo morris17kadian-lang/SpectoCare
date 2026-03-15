@@ -15,18 +15,18 @@ import { useAuth } from '../context/AuthContext';
 import { useChild } from '../context/ChildContext';
 import { getChildren } from '../services/firestoreService';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../constants/theme';
-import { RootStackParamList } from '../navigation/AppNavigator';
+import { HomeStackParamList } from '../navigation/TabNavigator';
 import { Child } from '../models';
 
-type Nav = NativeStackNavigationProp<RootStackParamList>;
+type Nav = NativeStackNavigationProp<HomeStackParamList>;
 
 const QUICK_ACTIONS = [
-  { label: 'Check Symptoms', icon: 'medical', tab: 'Symptoms', color: Colors.danger },
-  { label: 'Find Facility', icon: 'location', tab: 'Facilities', color: Colors.primary },
-  { label: 'Daily Routine', icon: 'calendar', route: 'Routine', color: Colors.secondary },
-  { label: 'Log Behavior', icon: 'stats-chart', route: 'BehaviorTracker', color: Colors.accent },
-  { label: 'Journal', icon: 'book', route: 'Journal', color: Colors.success },
-  { label: 'Guidance', icon: 'bulb', route: 'Guidance', color: Colors.primaryLight },
+  { label: 'Check Symptoms', icon: 'medical', route: 'SymptomChecker', color: Colors.danger, needsChild: false },
+  { label: 'Find Facility', icon: 'location', route: 'Facilities', color: Colors.primary, needsChild: false },
+  { label: 'Daily Routine', icon: 'calendar', route: 'Routine', color: Colors.secondary, needsChild: true },
+  { label: 'Log Behavior', icon: 'stats-chart', route: 'BehaviorTracker', color: Colors.accent, needsChild: true },
+  { label: 'Journal', icon: 'book', route: 'Journal', color: Colors.success, needsChild: true },
+  { label: 'Guidance', icon: 'bulb', route: 'Guidance', color: Colors.primaryLight, needsChild: false },
 ];
 
 export default function HomeScreen() {
@@ -67,10 +67,38 @@ export default function HomeScreen() {
           {/* Right – profile */}
           <TouchableOpacity
             style={styles.headerIconBtn}
-            onPress={() => navigation.navigate('Tabs', undefined)}
+            onPress={() => (navigation.getParent() as any)?.navigate('Settings')}
           >
             <Ionicons name="person-circle-outline" size={26} color={Colors.textSecondary} />
           </TouchableOpacity>
+        </View>
+
+        {/* Quick Actions — edge-to-edge 3D circles */}
+        <View style={styles.actionsRow}>
+          {QUICK_ACTIONS.map((action) => (
+            <TouchableOpacity
+              key={action.label}
+              style={styles.actionItem}
+              onPress={() => {
+                if (!action.needsChild) {
+                  navigation.navigate(action.route as any);
+                } else if (selectedChild) {
+                  navigation.navigate(action.route as any, {
+                    childId: selectedChild.id,
+                    childName: selectedChild.name,
+                  });
+                } else {
+                  navigation.navigate('Children');
+                }
+              }}
+              activeOpacity={0.75}
+            >
+              <View style={[styles.actionCircle, { backgroundColor: action.color }]}>
+                <Ionicons name={action.icon as any} size={22} color="#fff" />
+              </View>
+              <Text style={styles.actionLabel} numberOfLines={2}>{action.label}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
         {/* Selected Child Banner */}
@@ -99,37 +127,6 @@ export default function HomeScreen() {
             <Text style={styles.addChildText}>Add your first child to get started</Text>
           </TouchableOpacity>
         )}
-
-        {/* Quick Actions */}
-        <Text style={styles.sectionTitle}>Quick Actions</Text>
-        <View style={styles.actionsGrid}>
-          {QUICK_ACTIONS.map((action) => (
-            <TouchableOpacity
-              key={action.label}
-              style={styles.actionCard}
-              onPress={() => {
-                if (action.tab) {
-                  (navigation as any).navigate(action.tab);
-                } else if (action.route && selectedChild) {
-                  (navigation as any).navigate(action.route, {
-                    childId: selectedChild.id,
-                    childName: selectedChild.name,
-                  });
-                } else if (action.route === 'Guidance') {
-                  navigation.navigate('Guidance');
-                } else {
-                  navigation.navigate('Children' as any);
-                }
-              }}
-              activeOpacity={0.8}
-            >
-              <View style={[styles.actionIcon, { backgroundColor: `${action.color}18` }]}>
-                <Ionicons name={action.icon as any} size={26} color={action.color} />
-              </View>
-              <Text style={styles.actionLabel}>{action.label}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
 
         {/* Tips Card */}
         <View style={styles.tipCard}>
@@ -237,40 +234,44 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: Spacing.sm,
   },
-  sectionTitle: {
-    fontSize: FontSize.lg,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-    marginBottom: Spacing.md,
-  },
-  actionsGrid: {
+  // Quick actions edge-to-edge
+  actionsRow: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginHorizontal: -Spacing.xs,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     marginBottom: Spacing.lg,
   },
-  actionCard: {
-    width: '31%',
-    margin: '1%',
-    backgroundColor: Colors.surface,
-    borderRadius: Radius.lg,
-    padding: Spacing.md,
+  actionItem: {
+    flex: 1,
     alignItems: 'center',
-    ...Shadow.sm,
   },
-  actionIcon: {
-    width: 52,
-    height: 52,
-    borderRadius: Radius.md,
+  actionCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    marginBottom: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.22,
+    shadowRadius: 5,
+    elevation: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: Spacing.sm,
+    borderTopWidth: 2,
+    borderLeftWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.5)',
+    borderLeftColor: 'rgba(255,255,255,0.3)',
+    borderBottomWidth: 3,
+    borderRightWidth: 2,
+    borderBottomColor: 'rgba(0,0,0,0.2)',
+    borderRightColor: 'rgba(0,0,0,0.12)',
   },
   actionLabel: {
-    fontSize: FontSize.xs,
+    fontSize: 9,
     fontWeight: '600',
     color: Colors.textPrimary,
     textAlign: 'center',
+    lineHeight: 13,
   },
   tipCard: {
     flexDirection: 'row',

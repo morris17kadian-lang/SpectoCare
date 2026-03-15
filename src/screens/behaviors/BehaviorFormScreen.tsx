@@ -16,12 +16,12 @@ import { RouteProp } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
 import { addBehaviorLog } from '../../services/firestoreService';
 import { Colors, Spacing, Radius, FontSize } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { HomeStackParamList } from '../../navigation/TabNavigator';
 import { format } from 'date-fns';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'BehaviorForm'>;
-  route: RouteProp<RootStackParamList, 'BehaviorForm'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'BehaviorForm'>;
+  route: RouteProp<HomeStackParamList, 'BehaviorForm'>;
 };
 
 const BEHAVIOR_TYPES = [

@@ -15,11 +15,11 @@ import { analyzeSymptoms, SYMPTOMS } from '../services/symptomService';
 import { getFacilities } from '../services/firestoreService';
 import { Facility, PossibleCondition, SymptomCheckResult } from '../models';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../constants/theme';
-import { RootStackParamList } from '../navigation/AppNavigator';
+import { HomeStackParamList } from '../navigation/TabNavigator';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'SymptomResult'>;
-  route: RouteProp<RootStackParamList, 'SymptomResult'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'SymptomResult'>;
+  route: RouteProp<HomeStackParamList, 'SymptomResult'>;
 };
 
 const SEVERITY_CONFIG = {

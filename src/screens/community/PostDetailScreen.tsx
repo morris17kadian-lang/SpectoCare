@@ -19,12 +19,12 @@ import { useAuth } from '../../context/AuthContext';
 import { getPosts, getComments, addComment } from '../../services/firestoreService';
 import { Post, Comment } from '../../models';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { CommunityStackParamList } from '../../navigation/TabNavigator';
 import { formatDistanceToNow } from 'date-fns';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'PostDetail'>;
-  route: RouteProp<RootStackParamList, 'PostDetail'>;
+  navigation: NativeStackNavigationProp<CommunityStackParamList, 'PostDetail'>;
+  route: RouteProp<CommunityStackParamList, 'PostDetail'>;
 };
 
 export default function PostDetailScreen({ navigation, route }: Props) {

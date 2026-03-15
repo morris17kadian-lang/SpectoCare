@@ -16,10 +16,10 @@ import { useAuth } from '../../context/AuthContext';
 import { useChild } from '../../context/ChildContext';
 import { getChildren, deleteChild } from '../../services/firestoreService';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { HomeStackParamList } from '../../navigation/TabNavigator';
 import { Child } from '../../models';
 
-type Nav = NativeStackNavigationProp<RootStackParamList>;
+type Nav = NativeStackNavigationProp<HomeStackParamList>;
 
 export default function ChildrenScreen() {
   const { user } = useAuth();
@@ -63,6 +63,9 @@ export default function ChildrenScreen() {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
+        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back" size={26} color={Colors.textPrimary} />
+        </TouchableOpacity>
         <Text style={styles.title}>Children</Text>
         <TouchableOpacity
           style={styles.addBtn}
@@ -154,6 +157,7 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.md,
     paddingBottom: Spacing.sm,
   },
+  backBtn: { width: 40, height: 40, justifyContent: 'center', alignItems: 'center' },
   title: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.textPrimary },
   addBtn: {
     width: 40,

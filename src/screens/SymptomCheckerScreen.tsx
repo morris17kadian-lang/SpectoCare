@@ -14,9 +14,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SYMPTOMS } from '../services/symptomService';
 import { Symptom, SymptomCategory } from '../models';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../constants/theme';
-import { RootStackParamList } from '../navigation/AppNavigator';
+import { HomeStackParamList } from '../navigation/TabNavigator';
 
-type Nav = NativeStackNavigationProp<RootStackParamList>;
+type Nav = NativeStackNavigationProp<HomeStackParamList>;
 
 const CATEGORY_META: Record<
   SymptomCategory,
@@ -69,7 +69,10 @@ export default function SymptomCheckerScreen() {
     <SafeAreaView style={styles.safe}>
       {/* Header */}
       <View style={styles.header}>
-        <View>
+        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back" size={26} color={Colors.textPrimary} />
+        </TouchableOpacity>
+        <View style={{ flex: 1 }}>
           <Text style={styles.title}>Symptom Checker</Text>
           <Text style={styles.subtitle}>Select all symptoms you have observed</Text>
         </View>
@@ -226,12 +229,12 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.background },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     paddingTop: Spacing.md,
     paddingBottom: Spacing.sm,
   },
+  backBtn: { width: 40, height: 40, justifyContent: 'center', alignItems: 'center', marginRight: 4 },
   title: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.textPrimary },
   subtitle: { fontSize: FontSize.sm, color: Colors.textSecondary, marginTop: 2 },
   badge: {
@@ -267,8 +270,8 @@ const styles = StyleSheet.create({
   catChip: {
     flexDirection: 'row',
     alignItems: 'center',
+    height: 36,
     paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
     borderRadius: Radius.full,
     backgroundColor: Colors.surface,
     borderWidth: 1.5,

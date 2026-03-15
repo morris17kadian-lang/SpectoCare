@@ -13,15 +13,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../constants/theme';
-import { RootStackParamList } from '../navigation/AppNavigator';
+import { HomeStackParamList } from '../navigation/TabNavigator';
 
 // In a real app you'd fetch from Firestore by ID; here we use navigation state
 // The full list screen already has the data, so we pass the facilityId and
 // re-fetch. For now we show a placeholder-driven version until Firestore is seeded.
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'FacilityDetail'>;
-  route: RouteProp<RootStackParamList, 'FacilityDetail'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'FacilityDetail'>;
+  route: RouteProp<HomeStackParamList, 'FacilityDetail'>;
 };
 
 export default function FacilityDetailScreen({ navigation, route }: Props) {

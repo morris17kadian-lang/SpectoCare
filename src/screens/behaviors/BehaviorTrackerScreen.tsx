@@ -15,11 +15,11 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { getBehaviorLogs, deleteBehaviorLog } from '../../services/firestoreService';
 import { BehaviorLog } from '../../models';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { HomeStackParamList } from '../../navigation/TabNavigator';
 
 type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'BehaviorTracker'>;
-  route: RouteProp<RootStackParamList, 'BehaviorTracker'>;
+  navigation: NativeStackNavigationProp<HomeStackParamList, 'BehaviorTracker'>;
+  route: RouteProp<HomeStackParamList, 'BehaviorTracker'>;
 };
 
 const SEVERITY_COLORS = ['', Colors.success, Colors.success, Colors.warning, Colors.danger, Colors.danger];
