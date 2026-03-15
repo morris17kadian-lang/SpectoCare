@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  Linking,
+  Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -39,6 +41,15 @@ const TYPE_ICONS: Record<string, React.ComponentProps<typeof Ionicons>['name']> 
   All: 'apps-outline',
 };
 
+const QUICK_SEARCH_CATEGORIES = [
+  { label: 'Autism Center', query: 'Autism center', icon: 'heart-outline' },
+  { label: 'Psychologist', query: 'Psychologist', icon: 'brain-outline' },
+  { label: 'Speech Therapist', query: 'Speech therapist', icon: 'chatbubbles-outline' },
+  { label: 'Occupational Therapist', query: 'Occupational therapist', icon: 'body-outline' },
+  { label: 'Pediatrician', query: 'Pediatrician', icon: 'medical-outline' },
+  { label: 'Special Schools', query: 'Special education school', icon: 'school-outline' },
+];
+
 export default function FacilitiesScreen() {
   const navigation = useNavigation<Nav>();
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -62,6 +73,11 @@ export default function FacilitiesScreen() {
       f.city.toLowerCase().includes(search.toLowerCase());
     return matchesType && matchesSearch;
   });
+
+  const handleExternalSearch = (query: string) => {
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query + ' near me')}`;
+    Linking.openURL(url).catch((err) => console.error("Couldn't load page", err));
+  };
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -90,6 +106,26 @@ export default function FacilitiesScreen() {
             <Ionicons name="close-circle" size={18} color={Colors.textMuted} />
           </TouchableOpacity>
         )}
+      </View>
+
+      {/* Quick Search Buttons */}
+      <View style={styles.quickSearchContainer}>
+        <Text style={styles.sectionTitle}>Quick Search Near You</Text>
+        <View style={styles.quickSearchGrid}>
+          {QUICK_SEARCH_CATEGORIES.map((cat, idx) => (
+            <TouchableOpacity
+              key={idx}
+              style={styles.quickSearchBtn}
+              onPress={() => handleExternalSearch(cat.query)}
+              activeOpacity={0.7}
+            >
+              <View style={styles.quickSearchIcon}>
+                <Ionicons name={cat.icon as any} size={22} color={Colors.primary} />
+              </View>
+              <Text style={styles.quickSearchLabel} numberOfLines={1}>{cat.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
 
       {/* Type filter */}
@@ -249,4 +285,46 @@ const styles = StyleSheet.create({
   cardType: { fontSize: FontSize.xs, color: Colors.primary, fontWeight: '600', marginTop: 1 },
   cardAddress: { fontSize: FontSize.xs, color: Colors.textSecondary, marginTop: 2 },
   cardPhone: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 1 },
+  sectionTitle: {
+    fontSize: FontSize.md,
+    fontWeight: '700',
+    color: Colors.textPrimary,
+    marginHorizontal: Spacing.lg,
+    marginBottom: Spacing.sm,
+  },
+  quickSearchContainer: {
+    marginBottom: Spacing.md,
+  },
+  quickSearchGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: Spacing.lg - 4, // Adjust for button margins
+  },
+  quickSearchBtn: {
+    width: (Dimensions.get('window').width - Spacing.lg * 2) / 3 - 8,
+    backgroundColor: Colors.surface,
+    borderRadius: Radius.md,
+    padding: Spacing.sm,
+    margin: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Colors.border,
+    ...Shadow.sm,
+  },
+  quickSearchIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: Radius.sm,
+    backgroundColor: `${Colors.primary}10`,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  quickSearchLabel: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: Colors.textSecondary,
+    textAlign: 'center',
+  },
 });
